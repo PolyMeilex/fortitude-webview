@@ -75,11 +75,11 @@ async fn open_webview(window: gtk::ApplicationWindow, base_url: &str) -> Option<
 }
 
 async fn get_svpn_cookie(uri: &str, cookie_manager: &CookieManager) -> Option<String> {
-    if !uri.contains("sslvpn/portal.html") {
+    if !uri.contains("sslvpn/portal") {
         return None;
     }
 
-    let host = uri.split("sslvpn/portal.html").next()?;
+    let host = uri.split("sslvpn/portal").next()?;
     let cookies = cookie_manager.cookies_future(host).await.ok()?;
 
     let mut cookie = cookies.into_iter().find_map(|mut c| {
